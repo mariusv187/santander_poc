@@ -1,0 +1,17 @@
+{
+  "url": "https://sanukretail--ccdev.lightning.force.com/",
+  "instances": [
+    {
+      "name": "driver1",
+      "action": "logintomobile",
+      "username": "catalin_dobrescu@santander.co.uk.ccdev",
+      "password": "Epamjkd21"
+    },
+    {
+      "name": "driver1",
+      "action": "logintomobile",
+      "username": "catalin_dobrescu@santander.co.uk.ccdev",
+      "password": "Epamjkd21"
+    }
+  ]
+}
