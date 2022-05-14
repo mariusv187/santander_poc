@@ -1,12 +1,16 @@
 package com.santander.steps;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.santander.context.ScenarioContext;
 import com.santander.context.TestContextConfig;
 import com.santander.pages.AgentsPage;
+import com.santander.pages.BasePage;
 import com.santander.pages.LoginPage;
+import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.spring.CucumberContextConfiguration;
 import models.Instances;
+import org.openqa.selenium.WebDriver;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.io.File;
@@ -18,13 +22,11 @@ import java.util.concurrent.ForkJoinTask;
 @ContextConfiguration(classes = TestContextConfig.class)
 public class CucumberSteps {
 
-    private final LoginPage loginPage;
-    private final AgentsPage agentsPage;
     private ObjectMapper mapper = new ObjectMapper();
+    private final ScenarioContext scenarioContext;
 
-    public CucumberSteps(LoginPage loginPage, AgentsPage agentsPage) {
-        this.loginPage = loginPage;
-        this.agentsPage = agentsPage;
+    public CucumberSteps(ScenarioContext scenarioContext) {
+        this.scenarioContext = scenarioContext;
     }
 
     @Given("Login users for {string} configuration")
@@ -37,14 +39,28 @@ public class CucumberSteps {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+        scenarioContext.setInContext("instances", instances);
         ForkJoinPool threadPool = new ForkJoinPool(instances.getInstances().size());
         ForkJoinTask<?> task = threadPool.submit(() -> instances.getInstances().stream().parallel().forEach(action -> {
+            WebDriver webDriver = BasePage.getWebDriver();
+            scenarioContext.setInContext(action.getName(), webDriver);
+            LoginPage loginPage = new LoginPage(webDriver);
             loginPage.openPage(instances.getUrl());
-            loginPage.login(action.getUsername(), action.getPassword());
+            AgentsPage agentsPage = loginPage.login(action.getUsername(), action.getPassword());
             agentsPage.setUserToAvailable();
         }));
         task.join();
     }
 
+    @After
+    public void closeBrowsers() {
+        scenarioContext.getFromContext("instances", Instances.class).getInstances().stream().parallel().forEach(actions -> {
+            scenarioContext.getFromContext(actions.getName(), WebDriver.class).quit();
+        });
+    }
+
+    @Given("pause test")
+    public void pauseTest() {
+        System.out.println("stop");
+    }
 }

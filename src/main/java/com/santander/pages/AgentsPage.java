@@ -3,9 +3,7 @@ package com.santander.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.springframework.stereotype.Component;
 
-@Component
 public class AgentsPage extends BasePage {
 
     @FindBy(xpath = "/html/body/div[4]/div[1]/section/div[2]/div[1]/div[4]/ul/li/div/div/button/span")
