@@ -1,0 +1,71 @@
+{
+  "url": "https://sanukretail--ccdev.lightning.force.com/",
+  "instances": [
+    {
+      "name": "driver1",
+      "action": "logintomobile",
+      "username": "T_user11@santander.com",
+      "password": "Wietnam01!"
+    },
+    {
+      "name": "driver2",
+      "action": "logintomobile",
+      "username": "T_user12@santander.com",
+      "password": "Wietnam01!"
+    },
+    {
+      "name": "driver3",
+      "action": "logintomobile",
+      "username": "T_user13@santander.com",
+      "password": "Wietnam01!"
+    },
+    {
+      "name": "driver4",
+      "action": "logintomobile",
+      "username": "T_user14@santander.com",
+      "password": "Wietnam01!"
+    },
+    {
+      "name": "driver5",
+      "action": "logintomobile",
+      "username": "T_user15@santander.com",
+      "password": "Wietnam01!"
+    },
+    {
+      "name": "driver6",
+      "action": "logintomobile",
+      "username": "T_user16@santander.com",
+      "password": "Wietnam01!"
+    },
+    {
+      "name": "driver7",
+      "action": "logintomobile",
+      "username": "T_user17@santander.com",
+      "password": "Wietnam01!"
+    },
+    {
+      "name": "driver8",
+      "action": "logintomobile",
+      "username": "T_user18@santander.com",
+      "password": "Wietnam01!"
+    },
+    {
+      "name": "driver9",
+      "action": "logintomobile",
+      "username": "T_user19@santander.com",
+      "password": "Wietnam01!"
+    },
+    {
+      "name": "driver10",
+      "action": "logintomobile",
+      "username": "T_user20@santander.com",
+      "password": "Wietnam01!"
+    },
+    {
+      "name": "driver11",
+      "action": "logintomobile",
+      "username": "T_user21@santander.com",
+      "password": "Wietnam01!"
+    }
+  ]
+}
