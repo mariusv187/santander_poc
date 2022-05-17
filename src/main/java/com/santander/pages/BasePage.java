@@ -27,6 +27,7 @@ public class BasePage {
     private static WebDriver getChromeDriver() {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
         driver.manage().window().maximize();
         return driver;
     }
