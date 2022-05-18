@@ -1,8 +1,7 @@
 package com.santander.pages;
 
-import org.awaitility.Awaitility;
-import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,16 +27,18 @@ public class AgentsPage extends BasePage {
         super(webDriver);
     }
 
-    public void setUserToAvailable() {
+    public void setUserToAvailable() throws InterruptedException {
         omniChannel.click();
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(60));
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+        Thread.sleep(1000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("/html/body/div[4]/div[1]/section/div[2]/div[1]/div[3]/div/div/div[1]/div/button/lightning-primitive-icon")));
         dropButton.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("/html/body/div[4]/div[1]/section/div[2]/div[1]/div[3]/div/div/div[1]/div/div/ul/li[1]/a")));
+        Thread.sleep(1000);
         setToAvailable.click();
-        await().pollDelay(Duration.ofSeconds(1)).pollInterval(Duration.ofSeconds(2)).atMost(Duration.ofSeconds(60)).until(() ->
+        await().pollDelay(Duration.ofSeconds(1)).pollInterval(Duration.ofSeconds(2)).atMost(Duration.ofSeconds(10)).until(() ->
                 "Available".equalsIgnoreCase(status.getText()));
 
     }

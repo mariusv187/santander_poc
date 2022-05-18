@@ -40,14 +40,18 @@ public class CucumberSteps {
             throw new RuntimeException(e);
         }
         scenarioContext.setInContext("instances", instances);
-        ForkJoinPool threadPool = new ForkJoinPool(instances.getInstances().size());
+        ForkJoinPool threadPool = new ForkJoinPool(4);
         ForkJoinTask<?> task = threadPool.submit(() -> instances.getInstances().stream().parallel().forEach(action -> {
             WebDriver webDriver = BasePage.getWebDriver();
             scenarioContext.setInContext(action.getName(), webDriver);
             LoginPage loginPage = new LoginPage(webDriver);
             loginPage.openPage(instances.getUrl());
             AgentsPage agentsPage = loginPage.login(action.getUsername(), action.getPassword());
-            agentsPage.setUserToAvailable();
+            try {
+                agentsPage.setUserToAvailable();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }));
         task.join();
     }
